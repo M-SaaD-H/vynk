@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const Hero = () => {
   return (
-    <div className='p-8 relative h-[30rem] w-full [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent)] mask-y-from-50% mask-y-to-70%'>
+    <div className='p-8 relative w-full [mask-image:radial-gradient(ellipse_at_center,black,transparent)] mask-y-from-50% mask-y-to-70%'>
       <div
         className={cn(
           'absolute inset-0 -z-50',

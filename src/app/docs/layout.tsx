@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           className: 'h-[calc(100vh-4rem)] top-16' 
         }} 
       >
-        <div className='flex'>
+        <div className='flex max-w-screen'>
           {children}
         </div>
       </DocsLayout>
