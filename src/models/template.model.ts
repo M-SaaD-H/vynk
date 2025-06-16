@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface ITemplate {
-  _id?: mongoose.Types.ObjectId;
+  _id: mongoose.Types.ObjectId;
   title: string;
   description: string;
   images: string[];
