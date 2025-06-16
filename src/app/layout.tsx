@@ -5,6 +5,7 @@ import { ThemeContextProvider } from "@/contexts/ThemeContextProvider";
 import { RootProvider } from "fumadocs-ui/provider"
 import Navbar from "@/components/Navbar";
 import { Analytics } from '@vercel/analytics/next';
+import AuthProvider from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,13 +35,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <ThemeContextProvider>
-          <RootProvider>
-            <Navbar />
-            {children}
-            <Analytics />
-          </RootProvider>
-        </ThemeContextProvider>
+        <AuthProvider>
+          <ThemeContextProvider>
+            <RootProvider>
+              <Navbar />
+              {children}
+              <Analytics />
+            </RootProvider>
+          </ThemeContextProvider>
+        </AuthProvider>
       </body>
     </html>
   );
