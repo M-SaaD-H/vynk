@@ -1,31 +1,123 @@
-import React from 'react'
+'use client'
+
+import React, { useRef } from 'react'
 import { Button } from './ui/Btn'
 import Image from 'next/image'
 import Link from 'next/link'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogFooter } from '../../registry/components/ui/alert-dialog'
+import { IconTrash } from '@tabler/icons-react'
+import { ITemplate } from '@/models/template.model'
+import { useSession } from 'next-auth/react'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
-export type Template = {
-  title: string,
-  description: string,
-  images: string[],
-  liveLink: string
-}
+const TemplateCard = ({ template }: { template: ITemplate }) => {
+  const alertDialogCloseRef = useRef<HTMLButtonElement | null>(null);
+  const { data: session } = useSession();
+  const router = useRouter();
 
-const TemplateCard = ({ template }: { template: Template }) => {
+  type OrderData = {
+    orderId: string,
+    amount: number,
+    currency: string,
+    dbOrderId: string,
+    template: ITemplate
+  }
+
+  const handlePurchase = async (template: ITemplate) => {
+    if(!session) {
+      toast('Please login to purchase.');
+      router.push('/login');
+      return;
+    }
+
+    if(!template._id) {
+      toast.error('Invalid Template')
+    }
+
+    // Now proceed with the payments part
+    
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ templateId: template._id })
+      })
+      
+      const data = await res.json();
+      const orderData: OrderData = data.data;
+
+      console.log('orderData =', orderData);
+      console.log('key =', process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID)
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: orderData.amount,
+        currency: 'USD',
+        name: 'Vynk',
+        description: `${template.title}`,
+        order_id: orderData.orderId,
+        handler: function () {
+          toast.success('Payment successful!');
+          router.push('/orders');
+        },
+        prefill: {
+          email: session.user.email,
+        }
+      }
+
+      // @ts-expect-error Razorpay is loaded via external script and not typed
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error(error);
+      toast.error((error as Error).message || 'Payment failed')
+    }
+  }
+
   return (
-    <div className='mx-8 p-6 flex flex-col-reverse md:flex-col rounded-lg border border-border bg-card relative'>
+    <div className='mx-8 p-6 flex flex-col-reverse md:flex-col rounded-lg border border-border bg-card'>
       <div className='flex flex-col md:flex-row'>
-        <div className='max-md:my-8 md:mb-4'>
+        <div className='max-md:my-8 md:mb-4 relative'>
           <h1 className='font-sans text-2xl font-semibold tracking-tight'>{template.title}</h1>
           <p className='text-muted-foreground text-sm'>{template.description}</p>
+          <Link href={template.liveLink} target='_blank' className='absolute inset-0' />
         </div>
-        <Button className='h-max relative z-50'>Buy Now $10</Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button className='h-max'>Buy Now ${template.price}</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className='md:max-w-md'>
+            <AlertDialogHeader className='flex flex-row gap-4'>
+              <Image
+                priority={false}
+                src={template.images[0]}
+                width={200}
+                height={150}
+                alt={template.title}
+                className='rounded-xl max-md:w-full'
+              />
+              <div className='w-full'>
+                <AlertDialogTitle>{template.title}</AlertDialogTitle>
+                <h1 className='text-primary text-3xl'>${template.price}</h1>
+                {/* Using custom remove button instead of the AlertDialogCancel and using its ref to close the alert */}
+                <AlertDialogCancel ref={alertDialogCloseRef} className='hidden'></AlertDialogCancel>
+                <div className='m-2 cursor-pointer ml-auto w-max'><IconTrash size={22} onClick={() => alertDialogCloseRef.current?.click()} /></div>
+              </div>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction className='w-[70%] mx-auto mt-4' onClick={() => handlePurchase(template)}>Checkout</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
       <div className='flex justify-between md:mt-4'>
         {
           template.images.map((image, idx) => (
             <Image
+              priority={false}
               src={image}
-              key={image}
+              key={idx}
               width={250}
               height={146}
               alt='Template Image'
@@ -34,7 +126,6 @@ const TemplateCard = ({ template }: { template: Template }) => {
           ))
         }
       </div>
-      <Link href={template.liveLink} target='_blank' className='absolute inset-0' />
     </div>
   )
 }

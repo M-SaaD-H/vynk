@@ -6,6 +6,8 @@ import { RootProvider } from "fumadocs-ui/provider"
 import Navbar from "@/components/Navbar";
 import { Analytics } from '@vercel/analytics/next';
 import AuthProvider from "@/components/Providers";
+import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +43,8 @@ export default function RootLayout({
               <Navbar />
               {children}
               <Analytics />
+              <Toaster />
+              <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             </RootProvider>
           </ThemeContextProvider>
         </AuthProvider>
