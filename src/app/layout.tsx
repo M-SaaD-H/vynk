@@ -5,7 +5,7 @@ import { ThemeContextProvider } from "@/contexts/ThemeContextProvider";
 import { RootProvider } from "fumadocs-ui/provider"
 import Navbar from "@/components/Navbar";
 import { Analytics } from '@vercel/analytics/next';
-import AuthProvider from "@/components/AuthProvider";
+import AuthProvider from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

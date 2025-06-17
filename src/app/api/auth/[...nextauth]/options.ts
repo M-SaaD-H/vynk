@@ -21,9 +21,8 @@ export const authOptions: NextAuthOptions = {
 
         await User.create({
           name: user.name,
-          email: user.email,
-          password: Math.random().toString(36).slice(-8) // For Google OAuth, we don't need a password so we are setting a random password as of now
-        });
+          email: user.email
+        })
         
         return true;
       } catch (error) {
@@ -43,7 +42,7 @@ export const authOptions: NextAuthOptions = {
     }
   },
   pages: {
-    signIn: '/signin',
+    signIn: '/login',
   },
   session: {
     strategy: 'jwt' as const,

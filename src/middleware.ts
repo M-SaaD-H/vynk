@@ -1,54 +1,19 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
+export { default } from 'next-auth/middleware'
 
-export default withAuth(
-  function middleware() {
-    return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token, req }) => {
-        const { pathname } = req.nextUrl;
+export async function middleware(req: NextRequest) {
+  const token = await getToken({ req: req })
+  const isAuthPage = req.nextUrl.pathname === '/login'
 
-        // Allow webhook endpoint
-        if (pathname.startsWith('/api/webhook')) {
-          return true;
-        }
-
-        // Allow auth-related routes
-        if (
-          pathname.startsWith("/api/auth") ||
-          pathname === "/login" ||
-          pathname === "/register"
-        ) {
-          return true;
-        }
-
-        // Public routes
-        if (
-          pathname === "/" ||
-          pathname.startsWith("/api/templates") ||
-          pathname.startsWith("/templates")
-        ) {
-          return true;
-        }
-
-        // All other routes require authentication
-        return !!token;
-      },
-    },
+  // Logged in user should not be allowed on login page
+  if (isAuthPage && token) {
+    return NextResponse.redirect(new URL('/', req.url))
   }
-);
+
+  return NextResponse.next()
+}
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
-     */
-    "/((?!_next/static|_next/image|favicon.ico|public/).*)",
-  ],
-};
+  matcher: ['/login']
+}

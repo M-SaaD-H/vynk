@@ -30,6 +30,7 @@ export async function connectToDB() {
     cachedConnection.con = await cachedConnection.promise;
   } catch(error) {
     cachedConnection.promise = null;
+    throw error;
   }
 
   return cachedConnection.con;
