@@ -28,7 +28,7 @@ const orderSchema = new Schema<IOrder>(
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     templateId: { type: Schema.Types.ObjectId, ref: 'Template', required: true },
     razorpayOrderId: { type: String, required: true },
-    razorpayPaymentId: { type: String, required: true },
+    razorpayPaymentId: { type: String },
     amount: { type: Number, required: true },
     status: {
       type: String,

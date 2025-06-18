@@ -23,34 +23,24 @@ export async function connectToDB() {
       maxPoolSize: 10
     }
 
-    cachedConnection.promise = mongoose.connect(MONGODB_URI, options).then(() => mongoose.connection);
+    cachedConnection.promise = mongoose.connect(MONGODB_URI, options)
+      .then((mongoose) => {
+        console.log('Connected to DB successfully');
+        return mongoose.connection;
+      })
+      .catch((error) => {
+        console.error('DB connection error:', error);
+        throw error;
+      });
   }
 
   try {
     cachedConnection.con = await cachedConnection.promise;
   } catch(error) {
     cachedConnection.promise = null;
+    console.error('Failed to connect to DB. E:', error);
     throw error;
   }
 
   return cachedConnection.con;
 }
-
-// async function connectDB() {
-//   if (connection.isConnected) {
-//     console.log('Using existing connection')
-//     return;
-//   }
-
-//   try {
-//     const db = await mongoose.connect(process.env.MONGODB_URI as string);
-
-//     connection.isConnected = db.connections[0].readyState === 1;
-//     console.log('Connected to the database successfully');
-//   } catch (error) {
-//     console.log('Error while connecting to the database E:', error);
-//     process.exit(1);
-//   }
-// }
-
-// export { connectDB };

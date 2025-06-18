@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Button } from './ui/Btn'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogFooter } from '../../registry/components/ui/alert-dialog'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogFooter, AlertDialogDescription } from '../../registry/components/ui/alert-dialog'
 import { IconTrash } from '@tabler/icons-react'
 import { ITemplate } from '@/models/template.model'
 import { useSession } from 'next-auth/react'
@@ -45,15 +45,17 @@ const TemplateCard = ({ template }: { template: ITemplate }) => {
       })
       
       const data = await res.json();
-      const orderData: OrderData = data.data;
+      
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to create order');
+      }
 
-      console.log('orderData =', orderData);
-      console.log('key =', process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID)
+      const orderData: OrderData = data.data;
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: orderData.amount,
-        currency: 'USD',
+        currency: orderData.currency,
         name: 'Vynk',
         description: `${template.title}`,
         order_id: orderData.orderId,
@@ -63,6 +65,7 @@ const TemplateCard = ({ template }: { template: ITemplate }) => {
         },
         prefill: {
           email: session.user.email,
+          name: session.user.name
         }
       }
 
@@ -95,7 +98,7 @@ const TemplateCard = ({ template }: { template: ITemplate }) => {
                 width={200}
                 height={150}
                 alt={template.title}
-                className='rounded-xl max-md:w-full'
+                className='rounded-xl max-md:max-w-[50%]'
               />
               <div className='w-full'>
                 <AlertDialogTitle>{template.title}</AlertDialogTitle>
@@ -105,8 +108,9 @@ const TemplateCard = ({ template }: { template: ITemplate }) => {
                 <div className='m-2 cursor-pointer ml-auto w-max'><IconTrash size={22} onClick={() => alertDialogCloseRef.current?.click()} /></div>
               </div>
             </AlertDialogHeader>
+            <AlertDialogDescription />
             <AlertDialogFooter>
-              <AlertDialogAction className='w-[70%] mx-auto mt-4' onClick={() => handlePurchase(template)}>Checkout</AlertDialogAction>
+              <AlertDialogAction className='w-[70%] mx-auto' onClick={() => handlePurchase(template)}>Checkout</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -119,7 +123,7 @@ const TemplateCard = ({ template }: { template: ITemplate }) => {
               src={image}
               key={idx}
               width={250}
-              height={146}
+              height={100}
               alt='Template Image'
               className={`rounded-xl ${idx > 0 && 'hidden md:block'} max-md:w-full`}
             />

@@ -58,6 +58,15 @@ export async function POST(req: NextRequest) {
 
         await transporter.sendMail(emailTemplate);
       }
+    } else if (event.event === 'payment.failed') {
+      const payment = event.payload.payment.entity;
+
+      const order = await Order.findOneAndUpdate(
+        { razorpayOrderId: payment.order_id },
+        {
+          status: 'failed'
+        }
+      )
     }
 
     return NextResponse.json(

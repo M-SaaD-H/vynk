@@ -8,8 +8,8 @@ import { ITemplate, Template } from '@/models/template.model';
 import { Order } from '@/models/order.model';
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+  key_secret: process.env.NEXT_PUBLIC_RAZORPAY_KEY_SECRET!,
 });
 
 
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     )
   } catch(error) {
-    console.error('Error while creating order E:', (error as Error).message);
+    console.error('Error while creating order E:', error);
     return NextResponse.json(
       new ApiResponse(501, null, 'Error while creating order'),
       { status: 501 }
