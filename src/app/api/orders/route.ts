@@ -1,15 +1,19 @@
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import Razorpay from 'razorpay'
 import { authOptions } from '../auth/[...nextauth]/options';
 import { ApiResponse } from '@/lib/apiResponse';
 import { connectToDB } from '@/lib/db';
 import { ITemplate, Template } from '@/models/template.model';
 import { Order } from '@/models/order.model';
+import DodoPayments from 'dodopayments';
 
-const razorpay = new Razorpay({
-  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-  key_secret: process.env.NEXT_PUBLIC_RAZORPAY_KEY_SECRET!,
+// const razorpay = new Razorpay({
+//   key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+//   key_secret: process.env.NEXT_PUBLIC_RAZORPAY_KEY_SECRET!,
+// });
+
+const dodoClient = new DodoPayments({
+  bearerToken: process.env.DODO_API_KEY!,
 });
 
 
@@ -37,42 +41,30 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // create a razorpay order
-    const order = await razorpay.orders.create({
-      amount: Math.round(template.price * 100),
-      currency: 'USD',
-      receipt: `reciept-${Date.now()}`,
-      notes: {
-        templateId: template._id.toString()
-      }
-    });
-
-    // create the corrosponding order in the DB as well
-    const dbOrder = await Order.create({
-      userId: session.user._id,
-      templateId: template._id,
-      razorpayOrderId: order.id,
-      amount: Math.round(template.price * 100),
-      status: 'pending'
+    const payment = await dodoClient.payments.create({
+      billing: { city: 'city', country: 'AF', state: 'state', street: 'street', zipcode: 'zipcode' },
+      customer: { email: session.user.email!, name: session.user.name! },
+      product_cart: [{ product_id: template.productId, quantity: 1 }],
+      metadata: { userId: session.user._id },
+      return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/orders`
     });
 
     return NextResponse.json(
       new ApiResponse(
         200,
         {
-          orderId: order.id,
-          amount: order.amount,
-          currency: order.currency,
-          dbOrderId: dbOrder._id,
-          template
+          dodoPaymentId: payment.payment_id,
+          amount: payment.total_amount,
+          template,
+          paymentLink: payment.payment_link
         }
       ),
       { status: 200 }
     )
   } catch(error) {
-    console.error('Error while creating order E:', error);
+    console.error('Error while creating payment link E:', error);
     return NextResponse.json(
-      new ApiResponse(501, null, 'Error while creating order'),
+      new ApiResponse(501, null, 'Error while creating payment link'),
       { status: 501 }
     )
   }

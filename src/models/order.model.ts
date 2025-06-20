@@ -14,9 +14,8 @@ interface PopulatedTemplate {
 export interface IOrder {
   _id?: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId | PopulatedUser;
-  templateId: mongoose.Types.ObjectId | PopulatedTemplate;
-  razorpayOrderId: string;
-  razorpayPaymentId?: string;
+  productId: string;
+  paymentMethod?: string;
   amount: number;
   status: "pending" | "completed" | "failed";
   createdAt?: Date;
@@ -26,9 +25,6 @@ export interface IOrder {
 const orderSchema = new Schema<IOrder>(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    templateId: { type: Schema.Types.ObjectId, ref: 'Template', required: true },
-    razorpayOrderId: { type: String, required: true },
-    razorpayPaymentId: { type: String },
     amount: { type: Number, required: true },
     status: {
       type: String,

@@ -6,6 +6,7 @@ export interface ITemplate {
   description: string;
   images: string[];
   liveLink: string;
+  productId: string;
   price: number;
   createdAt?: Date;
   updatedAt?: Date;
