@@ -93,7 +93,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
           >
             {label}
           </label>
-          <Popover open={open} onOpenChange={setOpen}>
+          <Popover modal open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
