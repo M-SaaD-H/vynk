@@ -4,18 +4,7 @@ import { authOptions } from '../auth/[...nextauth]/options';
 import { ApiResponse } from '@/lib/apiResponse';
 import { connectToDB } from '@/lib/db';
 import { ITemplate, Template } from '@/models/template.model';
-import { Order } from '@/models/order.model';
-import DodoPayments from 'dodopayments';
-
-// const razorpay = new Razorpay({
-//   key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-//   key_secret: process.env.NEXT_PUBLIC_RAZORPAY_KEY_SECRET!,
-// });
-
-const dodoClient = new DodoPayments({
-  bearerToken: process.env.DODO_API_KEY!,
-});
-
+import { dodoClient } from '@/lib/dodopayments'
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,7 +17,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const { templateId } = await req.json();
+    const { templateId, customerDets } = await req.json();
 
     await connectToDB();
 
@@ -42,8 +31,17 @@ export async function POST(req: NextRequest) {
     }
 
     const payment = await dodoClient.payments.create({
-      billing: { city: 'city', country: 'AF', state: 'state', street: 'street', zipcode: 'zipcode' },
-      customer: { email: session.user.email!, name: session.user.name! },
+      billing: {
+        city: customerDets.city,
+        country: customerDets.country,
+        state: customerDets.state,
+        street: customerDets.addressLine,
+        zipcode: customerDets.zipCode
+      },
+      customer: {
+        email: customerDets.email,
+        name: customerDets.name
+      },
       product_cart: [{ product_id: template.productId, quantity: 1 }],
       metadata: { userId: session.user._id },
       return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/orders`

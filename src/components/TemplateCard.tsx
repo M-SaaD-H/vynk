@@ -1,82 +1,16 @@
 'use client'
 
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 import { Button } from './ui/Btn'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogFooter, AlertDialogDescription } from '../../registry/components/ui/alert-dialog'
 import { IconTrash } from '@tabler/icons-react'
 import { ITemplate } from '@/models/template.model'
-import { useSession } from 'next-auth/react'
-import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
+import { CustomerDetailForm } from './CustomerDetsForm'
 
-const TemplateCard = ({ template }: { template: ITemplate }) => {
+export default function TemplateCard({ template }: { template: ITemplate }) {
   const alertDialogCloseRef = useRef<HTMLButtonElement | null>(null);
-  const { data: session } = useSession();
-  const router = useRouter();
-
-  type OrderData = {
-    orderId: string,
-    amount: number,
-    currency: string,
-    dbOrderId: string,
-    template: ITemplate
-  }
-
-  const handlePurchase = async (template: ITemplate) => {
-    if(!session) {
-      toast('Please login to purchase.');
-      router.push('/login');
-      return;
-    }
-
-    if(!template._id) {
-      toast.error('Invalid Template')
-    }
-
-    // Now proceed with the payments part
-    
-    try {
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ templateId: template._id })
-      })
-      
-      const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.message || 'Failed to create order');
-      }
-
-      const orderData: OrderData = data.data;
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: 'Vynk',
-        description: `${template.title}`,
-        order_id: orderData.orderId,
-        handler: function () {
-          toast.success('Payment successful!');
-          router.push('/orders');
-        },
-        prefill: {
-          email: session.user.email,
-          name: session.user.name
-        }
-      }
-
-      // @ts-expect-error Razorpay is loaded via external script and not typed
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.error(error);
-      toast.error((error as Error).message || 'Payment failed')
-    }
-  }
 
   return (
     <div className='mx-8 p-6 flex flex-col-reverse md:flex-col rounded-lg border border-border bg-card'>
@@ -108,9 +42,10 @@ const TemplateCard = ({ template }: { template: ITemplate }) => {
                 <div className='m-2 cursor-pointer ml-auto w-max'><IconTrash size={22} onClick={() => alertDialogCloseRef.current?.click()} /></div>
               </div>
             </AlertDialogHeader>
+            <CustomerDetailForm template={template} />
             <AlertDialogDescription />
             <AlertDialogFooter>
-              <AlertDialogAction className='w-[70%] mx-auto' onClick={() => handlePurchase(template)}>Checkout</AlertDialogAction>
+              <AlertDialogAction className='hidden'>Checkout</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -133,5 +68,3 @@ const TemplateCard = ({ template }: { template: ITemplate }) => {
     </div>
   )
 }
-
-export default TemplateCard
