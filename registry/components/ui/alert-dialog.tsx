@@ -113,13 +113,13 @@ const AlertDialogContent = ({ className, ...props }: React.ComponentProps<typeof
               transition={{
                 duration: 0.25,
               }}
-              className='absolute inset-0 h-screen w-full'
+              className='fixed z-50 top-1/2 left-1/2 -translate-1/2 inset-0 h-screen w-screen flex justify-center items-center'
             >
               <AlertDialogPrimitive.Content
                 data-slot='alert-dialog-content'
                 {...props}
                 className={cn(
-                  'bg-neutral-50 dark:bg-neutral-900 fixed top-1/2 left-1/2 -translate-1/2 z-50 flex flex-col w-full md:max-w-[30rem] max-w-[calc(100vw-2em)] gap-4 rounded-md border border-border p-6 shadow-lg',
+                  'bg-neutral-50 dark:bg-neutral-900 relative z-50 flex flex-col w-full md:max-w-[30rem] max-w-[calc(100vw-2em)] gap-4 rounded-md border border-border p-6 shadow-lg',
                   className
                 )}
               />
