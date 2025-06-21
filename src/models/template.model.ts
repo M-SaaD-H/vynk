@@ -19,6 +19,7 @@ const templateSchema = new Schema<ITemplate>(
   images: [{ type: String, required: true }],
   liveLink: { type: String, required: true },
   price: { type: Number, required: true },
+  productId: { type: String, required: true }
   },
   { timestamps: true }
 );

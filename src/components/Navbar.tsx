@@ -27,7 +27,7 @@ const navItems = [
 const Navbar = () => {
   return (
     <div className='h-16 w-full'>
-      <div className='fixed w-full inset-x-0 bg-background border-b border-border top-0 z-50 flex justify-between items-center md:px-20 px-8 py-4'>
+      <div className='fixed w-full inset-x-0 bg-background border-b border-border top-0 flex justify-between items-center md:px-20 px-8 py-4'>
         <div className='flex'>
           <Link href={'/'} className='flex items-center gap-2'>
             <Image

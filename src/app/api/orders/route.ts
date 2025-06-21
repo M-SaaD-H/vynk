@@ -44,8 +44,17 @@ export async function POST(req: NextRequest) {
       },
       product_cart: [{ product_id: template.productId, quantity: 1 }],
       metadata: { userId: session.user._id },
+      payment_link: true,
       return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/orders`
     });
+
+    if(!payment.payment_link) {
+      console.error('Didn\'t got the payment link from dodo');
+      return NextResponse.json(
+        new ApiResponse(500, null, 'Didn\'t got the payment link from dodo'),
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json(
       new ApiResponse(

@@ -1,16 +1,21 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button } from './ui/Btn'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogFooter, AlertDialogDescription } from '../../registry/components/ui/alert-dialog'
 import { IconTrash } from '@tabler/icons-react'
 import { ITemplate } from '@/models/template.model'
 import { CustomerDetailForm } from './CustomerDetsForm'
+import { useSession } from 'next-auth/react'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { AnimatePresence, motion } from 'motion/react'
 
 export default function TemplateCard({ template }: { template: ITemplate }) {
-  const alertDialogCloseRef = useRef<HTMLButtonElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <div className='mx-8 p-6 flex flex-col-reverse md:flex-col rounded-lg border border-border bg-card'>
@@ -20,35 +25,22 @@ export default function TemplateCard({ template }: { template: ITemplate }) {
           <p className='text-muted-foreground text-sm'>{template.description}</p>
           <Link href={template.liveLink} target='_blank' className='absolute inset-0' />
         </div>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button className='h-max'>Buy Now ${template.price}</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent className='md:max-w-md'>
-            <AlertDialogHeader className='flex flex-row gap-4'>
-              <Image
-                priority={false}
-                src={template.images[0]}
-                width={200}
-                height={150}
-                alt={template.title}
-                className='rounded-xl max-md:max-w-[50%]'
-              />
-              <div className='w-full'>
-                <AlertDialogTitle>{template.title}</AlertDialogTitle>
-                <h1 className='text-primary text-3xl'>${template.price}</h1>
-                {/* Using custom remove button instead of the AlertDialogCancel and using its ref to close the alert */}
-                <AlertDialogCancel ref={alertDialogCloseRef} className='hidden'></AlertDialogCancel>
-                <div className='m-2 cursor-pointer ml-auto w-max'><IconTrash size={22} onClick={() => alertDialogCloseRef.current?.click()} /></div>
-              </div>
-            </AlertDialogHeader>
-            <CustomerDetailForm template={template} />
-            <AlertDialogDescription />
-            <AlertDialogFooter>
-              <AlertDialogAction className='hidden'>Checkout</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <Button
+          onClick={(e) => {
+            if (!session) {
+              e.preventDefault();
+              toast('Please login to purchase.');
+              router.push('/login');
+              return;
+            }
+
+            setIsOpen(true);
+          }}
+          className='h-max'
+        >
+          Buy Now $ {template.price}
+        </Button>
+        <CheckoutDialog template={template} isOpen={isOpen} seIsOpen={setIsOpen} />
       </div>
       <div className='flex justify-between md:mt-4'>
         {
@@ -68,3 +60,71 @@ export default function TemplateCard({ template }: { template: ITemplate }) {
     </div>
   )
 }
+
+const CheckoutDialog = ({
+  template,
+  isOpen,
+  seIsOpen,
+}: {
+  template: ITemplate;
+  isOpen: boolean;
+  seIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  return (
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.97,
+            x: 30,
+            y: -30,
+            filter: 'blur(10px)'
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            x: 0,
+            y: 0,
+            filter: 'blur(0px)'
+          }}
+          exit={{
+            opacity: 0,
+            scale: 0.95,
+            x: 30,
+            y: -30,
+            filter: 'blur(10px)'
+          }}
+          transition={{
+            duration: 0.25,
+          }}
+          className="fixed z-50 top-1/2 left-1/2 -translate-1/2 inset-0 flex justify-center items-center"
+        >
+          <div className="fixed h-screen w-screen bg-black/60 -z-10" onClick={() => seIsOpen(false)} />
+          <div className="h-max min-w-[20rem] max-w-[30rem] rounded-lg bg-card border border-border p-6">
+            <div className="flex flex-row gap-4">
+              <Image
+                priority={false}
+                src={template.images[0]}
+                width={200}
+                height={150}
+                alt={template.title}
+                className="rounded-xl max-md:max-w-[50%]"
+              />
+              <div className="w-full">
+                <h3 className="text-xl font-semibold">{template.title}</h3>
+                <h1 className="text-primary text-3xl font-bold">${template.price}</h1>
+                <div className="m-2 cursor-pointer ml-auto w-max">
+                  <IconTrash size={22} onClick={() => seIsOpen(false)} />
+                </div>
+              </div>
+            </div>
+            <div className="mt-8">
+              <CustomerDetailForm template={template} />
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};

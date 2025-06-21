@@ -147,7 +147,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
                     {filteredCountries.map((country) => (
                       <CommandItem
                         key={country.code}
-                        value={country.code}
+                        value={country.name}
                         onSelect={() => {
                           field.onChange(country.code);
                           setSearchTerm(""); // Reset search term after selection

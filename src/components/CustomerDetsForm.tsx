@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Form, FormControl, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "../../registry/components/ui/input";
 import { CountrySelect } from "./ui/CountrySelector/countrySelector";
 import { Button } from "./ui/Btn";
@@ -56,12 +56,7 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
       setIsLoading(false);
     }
   }
-  const {
-    control,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<z.infer<typeof customerDetailFormSchema>>({
+  const form = useForm<z.infer<typeof customerDetailFormSchema>>({
     resolver: zodResolver(customerDetailFormSchema),
     defaultValues: {
       name: '',
@@ -76,11 +71,11 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
 
   return (
     <div>
-      <Form {...useForm()}>
-        <form onSubmit={handleSubmit((data: z.infer<typeof customerDetailFormSchema>) => handlePurchase(template, data))} className="space-y-4 text-white">
-          <Controller
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit((data: z.infer<typeof customerDetailFormSchema>) => handlePurchase(template, data))} className="space-y-4 text-white">
+          <FormField
             name="name"
-            control={control}
+            control={form.control}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -89,15 +84,13 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
                 <FormControl>
                   <Input {...field} placeholder="eg: John" />
                 </FormControl>
-                {errors.name && (
-                  <FormMessage>{errors.name.message}</FormMessage>
-                )}
+                <FormMessage />
               </FormItem>
             )}
           />
-          <Controller
+          <FormField
             name="email"
-            control={control}
+            control={form.control}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -110,9 +103,7 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
                     placeholder="eg: johndoe@example.com"
                   />
                 </FormControl>
-                {errors.email && (
-                  <FormMessage>{errors.email.message}</FormMessage>
-                )}
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -122,7 +113,7 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
 
             <div>
               <CountrySelect
-                control={control}
+                control={form.control}
                 name="country"
                 label="Country"
                 placeholder="Please select a country"
@@ -131,9 +122,9 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
               />
             </div>
 
-            <Controller
+            <FormField
               name="addressLine"
-              control={control}
+              control={form.control}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -142,17 +133,15 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
                   <FormControl>
                     <Input {...field} placeholder="eg: 364 Kent St" />
                   </FormControl>
-                  {errors.addressLine && (
-                    <FormMessage>{errors.addressLine.message}</FormMessage>
-                  )}
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Controller
+              <FormField
                 name="city"
-                control={control}
+                control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
@@ -161,16 +150,14 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
                     <FormControl>
                       <Input {...field} placeholder="eg: Sydney" />
                     </FormControl>
-                    {errors.city && (
-                      <FormMessage>{errors.city.message}</FormMessage>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <Controller
+              <FormField
                 name="state"
-                control={control}
+                control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
@@ -179,16 +166,14 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
                     <FormControl>
                       <Input {...field} placeholder="eg: NSW" />
                     </FormControl>
-                    {errors.state && (
-                      <FormMessage>{errors.state.message}</FormMessage>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <Controller
+              <FormField
                 name="zipCode"
-                control={control}
+                control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
@@ -197,16 +182,14 @@ export const CustomerDetailForm = ({ template }: { template: ITemplate }) => {
                     <FormControl>
                       <Input {...field} placeholder="eg: 2035" />
                     </FormControl>
-                    {errors.zipCode && (
-                      <FormMessage>{errors.zipCode.message}</FormMessage>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
           </div>
 
-          <Button type='submit' className='w-[70%] mx-auto'>
+          <Button type='submit' className='w-[70%] mx-auto mt-8'>
             {isLoading ? "Processing..." : "Continue to Payment"}
           </Button>
         </form>

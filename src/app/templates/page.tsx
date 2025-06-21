@@ -15,7 +15,7 @@ export default function page() {
 
   return (
     <div className='max-w-4xl mx-auto min-h-screen py-8'>
-      <h1 className='my-4 bg-clip-text text-transparent text-center py-2 relative  font-bold font-sans tracking-tight text-4xl md:text-6xl bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-neutral-700 dark:to-white text-balance'>
+      <h1 className='my-4 bg-clip-text text-transparent text-center py-2 relative -z-1 font-bold font-sans tracking-tight text-4xl md:text-6xl bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-neutral-700 dark:to-white text-balance'>
         Premium Templates for Modern Apps
       </h1>
       <Templates templates={templates} />
