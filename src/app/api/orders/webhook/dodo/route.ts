@@ -43,17 +43,19 @@ export async function POST(request: Request) {
       
       const status = 
         payload.type === 'payment.succeeded' ? 'completed' :
-        payload.type === 'payment.failed' ? 'failed' : 'Unknown payment status'
+        payload.type === 'payment.failed' ? 'failed' : 'none'
       const userId = payload.data.metadata.userId;
+      const templateId = payload.data.metadata.templateId;
 
       for(const productId in productIds) {
-        
         await Order.create({
           userId,
           productId,
+          templateId,
           paymentMethod: payload.data.payment_method,
           amount: payload.data.total_amount,
-          status
+          status,
+          paymentStatus: payload.type
         });
       }
     }

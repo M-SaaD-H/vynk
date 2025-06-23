@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { connectToDB } from "@/lib/db";
 import { Order } from "@/models/order.model";
+import { Template } from "@/models/template.model";
 import { ApiResponse } from "@/lib/apiResponse";
 
 export async function GET() {
@@ -20,9 +21,9 @@ export async function GET() {
     const orders = await Order.find({ userId: session.user._id, status: 'completed' })
       .populate({
         path: 'templateId',
-        select: 'title price images',
-        // Return null if product not found instead of throwing error
-        options: { strictPopulate: false },
+        select: 'title price images liveLink',
+        model: Template,
+        options: { strictPopulate: false }
       })
       .sort({ createdAt: -1 })
       .lean();

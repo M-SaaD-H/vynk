@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
         name: customerDets.name
       },
       product_cart: [{ product_id: template.productId, quantity: 1 }],
-      metadata: { userId: session.user._id },
+      metadata: { userId: session.user._id, templateId: template._id.toString() },
       payment_link: true,
       return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/orders`
     });

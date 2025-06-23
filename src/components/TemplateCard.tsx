@@ -1,12 +1,12 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from './ui/Btn'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IconTrash } from '@tabler/icons-react'
 import { ITemplate } from '@/models/template.model'
-import { CustomerDetailForm } from './CustomerDetsForm'
+import { CustomerDetailForm } from './CustomerDetailForm'
 import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
@@ -98,11 +98,12 @@ const CheckoutDialog = ({
           transition={{
             duration: 0.25,
           }}
-          className="fixed z-50 top-1/2 left-1/2 -translate-1/2 inset-0 flex justify-center items-center"
+          className="fixed z-50 top-1/2 left-1/2 -translate-1/2 inset-0 flex justify-center items-center w-screen h-screen"
         >
           <div className="fixed h-screen w-screen bg-black/60 -z-10" onClick={() => seIsOpen(false)} />
-          <div className="h-max min-w-[20rem] max-w-[30rem] rounded-lg bg-card border border-border p-6">
-            <div className="flex flex-row gap-4">
+          <div className="h-max md:w-[30%] rounded-lg bg-card border border-border p-6">
+          {/* <div className="h-max w-[100vw] rounded-lg bg-card border border-border p-6"> */}
+            <div className="flex flex-row gap-4 w-full">
               <Image
                 priority={false}
                 src={template.images[0]}
@@ -119,7 +120,7 @@ const CheckoutDialog = ({
                 </div>
               </div>
             </div>
-            <div className="mt-8">
+            <div className="mt-8 w-full">
               <CustomerDetailForm template={template} />
             </div>
           </div>
