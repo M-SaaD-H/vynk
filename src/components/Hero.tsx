@@ -1,7 +1,7 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/Btn'
-import { TagItem, Tags } from '@/components/Tags'
+import { TagItem, Tags } from '@/../registry/components/ui/tags'
 import Link from 'next/link'
 import { IconBrandFramerMotion, IconBrandNextjs, IconBrandTailwind, IconBrandReact } from '@tabler/icons-react'
 import Badge from './Badge'

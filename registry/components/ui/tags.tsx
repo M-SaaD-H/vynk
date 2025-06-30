@@ -6,10 +6,10 @@ import { cn } from '@/lib/utils'
 
 type ItemType = {
   name: string,
-  logo: React.ReactNode
+  logo?: React.ReactNode
 }
 
-const Tags = ({ overlap, children }: { overlap: boolean, children: React.ReactNode }) => {
+const Tags = ({ overlap, children }: { overlap?: boolean, children: React.ReactNode }) => {
   return (
     <div 
       className='flex justify-center items-center'
@@ -45,12 +45,12 @@ const TagItem = ({ item }: { item: ItemType }) => {
         }}
         className='flex items-center'
       >
-        {item.logo}
+        {item.logo ?? <div className='h-6 w-6 rounded-full bg-foreground' />}
       </motion.div>
       <motion.div
         variants={{
           initial: { width: 0 },
-          animate: { width: 'auto' },
+          animate: { width: 'auto', marginRight: 'calc(var(--tag-overlap) * -3)' },
           exit: { width: 0 }
         }}
         transition={{
