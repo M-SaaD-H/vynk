@@ -13,8 +13,8 @@ const footLinks = [
     href: '/docs/blocks'
   },
   {
-    name: 'templates',
-    href: '/docs/templates'
+    name: 'Templates',
+    href: 'https://pro.vynk.live/templates'
   },
   {
     name: 'Snippets',

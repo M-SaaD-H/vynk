@@ -21,6 +21,10 @@ const navItems = [
   {
     name: 'Snippets',
     href: '/docs/snippets'
+  },
+  {
+    name: 'Templates',
+    href: 'https://pro.vynk.live/templates'
   }
 ]
 
