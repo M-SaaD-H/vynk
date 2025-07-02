@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { IconPointFilled } from "@tabler/icons-react";
 import { motion } from "motion/react"
 
-const SLIDER_OFFSET = "12rem";
-const SUB_SLIDER_OFFSET = "5.5rem";
+const SLIDER_OFFSET = "10rem";
+const SUB_SLIDER_OFFSET = "5rem";
 
 const TripleToggle = ({
   options,
@@ -56,7 +56,7 @@ const TripleToggle = ({
 
   const sliderVariant = {
     on: {
-      x: "12rem",
+      x: SLIDER_OFFSET,
       transition: {
         duration: 0.3,
         type: "tween",
@@ -105,19 +105,21 @@ const TripleToggle = ({
         className
       )}
     >
-      <div className="h-12 w-[24rem] rounded-full flex relative">
+      <div className="h-12 w-[20rem] rounded-full flex relative">
         {/* Slider */}
         <motion.div
           initial={{
             x: doubleToggleOn ? SLIDER_OFFSET : 0
           }}
           variants={sliderVariant}
+          role="button"
+          tabIndex={0}
           className="bg-primary h-full w-1/2 absolute rounded-full"
         />
 
         <div
           className={cn(
-            "h-full w-1/2 rounded-full flex justify-center items-center relative transition-colors",
+            "h-full w-1/2 rounded-full flex justify-center items-center absolute transition-colors",
             doubleToggleOn ? "text-primary" : "text-primary-foreground"
           )}
           onClick={() => toggleOptions(options.main)}
@@ -125,7 +127,7 @@ const TripleToggle = ({
           {options.main}
         </div>
         <div
-          className="h-full w-1/2 flex flex-col justify-center items-center"
+          className="h-full w-1/2 flex flex-col justify-center items-center absolute right-0"
           onClick={() => setDoubleToggleOn(true)}
         >
           <motion.div variants={titleVariant}>
@@ -156,37 +158,37 @@ const TripleToggle = ({
                     ease: "easeInOut",
                     duration: 0.2
                   }}
-
-                  className="bg-primary-foreground h-10 -top-1 w-1/2 absolute rounded-full -z-1"
+                  role="button"
+                  tabIndex={0}
+                  className="bg-primary-foreground h-10 -top-1 w-[4.5rem] absolute rounded-full"
                 />
               )
             }
 
-            <div
-              onClick={() => toggleOptions(options.grouped.subOptions[0])}
-              className={cn(
-                "w-1/2 text-center h-full relative",
-                "transition-colors duration-200",
-                doubleToggleOn && (value === options.grouped.subOptions[0] ? "text-primary" : "text-primary-foreground"),
-              )}
-            >
-              {options.grouped.subOptions[0]}
-            </div>
+            <div className="flex justify-between mx-auto w-full relative z-10">
+              <div
+                onClick={() => toggleOptions(options.grouped.subOptions[0])}
+                className={cn(
+                  "w-full text-center h-full transition-colors duration-200",
+                  doubleToggleOn && (value === options.grouped.subOptions[0] ? "text-primary" : "text-primary-foreground"),
+                )}
+              >
+                {options.grouped.subOptions[0]}
+              </div>
 
-            <IconPointFilled className={`my-auto transition-all duration-200 ${doubleToggleOn && "opacity-0 scale-80"}`} size={12} />
+            <IconPointFilled className={`my-auto transition-all duration-200 ml-1 ${doubleToggleOn && "opacity-0 scale-80"}`} size={12} />
 
-            <div
-              onClick={() => toggleOptions(options.grouped.subOptions[1])}
-              className={cn(
-                "w-1/2 text-center h-full",
-                "transition-colors duration-200",
-                doubleToggleOn && (value === options.grouped.subOptions[1] ? "text-primary" : "text-primary-foreground"),
-              )}
-            >
-              {options.grouped.subOptions[1]}
+              <div
+                onClick={() => toggleOptions(options.grouped.subOptions[1])}
+                className={cn(
+                  "w-full text-center h-full transition-colors duration-200",
+                  doubleToggleOn && (value === options.grouped.subOptions[1] ? "text-primary" : "text-primary-foreground"),
+                )}
+              >
+                {options.grouped.subOptions[1]}
+              </div>
             </div>
           </motion.div>
-
         </div>
       </div>
     </motion.div>
