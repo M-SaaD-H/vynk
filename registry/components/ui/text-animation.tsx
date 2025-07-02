@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import { useAnimate, stagger, motion } from 'motion/react'
-import { cn } from '@/lib/utils';
+import * as React from "react"
+import { useAnimate, stagger, motion } from "motion/react"
+import { cn } from "@/lib/utils";
 
 interface TextAnimationProps {
   text: string,
@@ -11,12 +11,12 @@ interface TextAnimationProps {
   duration?: number,
   startDelay?: number,
   staggerChildren?: number,
-  by?: 'words' | 'chars' | 'lines' | 'none',
+  by?: "words" | "chars" | "lines" | "none",
   blur?: boolean,
   fade?: boolean,
-  ease?: 'easeInOut' | 'easeIn' | 'easeOut',
-  direction?: 'top' | 'bottom' | 'right' | 'left',
-  animationDirection?: 'default' | 'reverse'
+  ease?: "easeInOut" | "easeIn" | "easeOut",
+  direction?: "top" | "bottom" | "right" | "left",
+  animationDirection?: "default" | "reverse"
 }
 
 const TextAnimation = ({
@@ -25,12 +25,12 @@ const TextAnimation = ({
   delay = 0,
   duration = 0.3,
   staggerChildren = 0.05,
-  by = 'chars',
+  by = "chars",
   blur = true,
   fade = true,
-  ease = 'easeInOut',
-  direction = 'bottom',
-  animationDirection = 'default'
+  ease = "easeInOut",
+  direction = "bottom",
+  animationDirection = "default"
 }: TextAnimationProps) => {
   const [scope, animate] = useAnimate();
   const [segments, setSegments] = React.useState<string[] | null>(null);
@@ -39,17 +39,17 @@ const TextAnimation = ({
     let segments: string[] = [];
 
     switch (by) {
-      case 'words':
-        segments = text.split(' ');
+      case "words":
+        segments = text.split(" ");
         break;
-      case 'lines':
-        segments = text.split('\n');
+      case "lines":
+        segments = text.split("\n");
         break;
-      case 'none':
+      case "none":
         segments = [text];
         break;
       default:
-        segments = text.split('');
+        segments = text.split("");
         break;
     }
 
@@ -60,9 +60,9 @@ const TextAnimation = ({
   const start = React.useMemo(() => (
     {
       opacity: fade ? 0 : 1,
-      y: direction === 'bottom' ? 20 : direction === 'top' ? -20 : 0,
-      x: direction === 'right' ? 20 : direction === 'left' ? -20 : 0,
-      filter: blur ? 'blur(10px)' : 'none',
+      y: direction === "bottom" ? 20 : direction === "top" ? -20 : 0,
+      x: direction === "right" ? 20 : direction === "left" ? -20 : 0,
+      filter: blur ? "blur(10px)" : "none",
     }
   ), [fade, direction, blur]);
 
@@ -72,7 +72,7 @@ const TextAnimation = ({
       opacity: 1,
       y: 0,
       x: 0,
-      filter: 'blur(0px)'
+      filter: "blur(0px)"
     }
   ), [])
 
@@ -80,8 +80,8 @@ const TextAnimation = ({
     if (segments) {
       const startAnimation = () => {
         animate(
-          'span',
-          animationDirection === 'default' ? end : start,
+          "span",
+          animationDirection === "default" ? end : start,
           {
             duration: duration,
             ease: ease,
@@ -100,19 +100,19 @@ const TextAnimation = ({
     <div
       ref={scope}
       className={cn(
-        'max-w-4xl mx-auto font-bold text-4xl whitespace-pre-wrap',
+        "max-w-4xl mx-auto font-bold text-4xl whitespace-pre-wrap",
         className
       )}
     >
       {
         segments.map((segment, idx) => (
           <motion.span
-            initial={animationDirection === 'default' ? start : end}
+            initial={animationDirection === "default" ? start : end}
             // custom styles for different values of by to display the spaces
             className={cn(
-              'inline-block',
-              by === 'lines' ? 'block' : 'inline-block whitespace-pre',
-              by === 'words' && 'mx-1',
+              "inline-block",
+              by === "lines" ? "block" : "inline-block whitespace-pre",
+              by === "words" && "mx-1",
             )}
             key={idx}
           >

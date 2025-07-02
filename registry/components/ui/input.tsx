@@ -1,24 +1,24 @@
-import { cn } from '@/lib/utils'
-import { cva, VariantProps } from 'class-variance-authority'
-import * as React from 'react'
+import { cn } from "@/lib/utils"
+import { cva, VariantProps } from "class-variance-authority"
+import * as React from "react"
 
 const inputVariants = cva(
-  'h-9 w-full border border-border rounded-md px-3 py-1 text-sm shadow-sm focus-visible:outline-none disabled:opacity-50',
+  "h-9 w-full border border-border rounded-md px-3 py-1 text-sm shadow-sm focus-visible:outline-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: 'bg-transparent',
-        filled: 'bg-muted'
+        default: "bg-transparent",
+        filled: "bg-muted"
       }
     },
     defaultVariants: {
-      variant: 'default'
+      variant: "default"
     }
   }
 )
 
 export interface InputProps
-extends React.ComponentProps<'input'>,
+extends React.ComponentProps<"input">,
 VariantProps<typeof inputVariants> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -32,6 +32,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   )
 )
 
-Input.displayName = 'Input'
+Input.displayName = "Input"
 
 export { Input }

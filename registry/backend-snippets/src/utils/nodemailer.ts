@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer'
-import { google } from 'googleapis'
+import nodemailer from "nodemailer"
+import { google } from "googleapis"
 
 // Type definitions
 interface EmailServiceConfig {
@@ -29,7 +29,7 @@ interface EmailOptions {
     contentType?: string;
   }>;
   headers?: Record<string, string>;
-  priority?: 'High' | 'Normal' | 'Low';
+  priority?: "High" | "Normal" | "Low";
   trackingId?: string;
 }
 
@@ -56,12 +56,12 @@ class EmailService {
   private retryDelay: number;
 
   constructor(config: EmailServiceConfig = {}) {
-    this.clientId = config.clientId || process.env.CLIENT_ID || '';
-    this.clientSecret = config.clientSecret || process.env.CLIENT_SECRET || '';
-    this.redirectURI = config.redirectURI || process.env.REDIRECT_URI || '';
-    this.refreshToken = config.refreshToken || process.env.REFRESH_TOKEN || '';
-    this.sendersAddress = config.sendersAddress || process.env.SENDERS_ADDRESS || '';
-    this.organizationName = config.organizationName || process.env.ORGANIZATION_NAME || 'Vynk'; // or hard code here
+    this.clientId = config.clientId || process.env.CLIENT_ID || "";
+    this.clientSecret = config.clientSecret || process.env.CLIENT_SECRET || "";
+    this.redirectURI = config.redirectURI || process.env.REDIRECT_URI || "";
+    this.refreshToken = config.refreshToken || process.env.REFRESH_TOKEN || "";
+    this.sendersAddress = config.sendersAddress || process.env.SENDERS_ADDRESS || "";
+    this.organizationName = config.organizationName || process.env.ORGANIZATION_NAME || "Vynk"; // or hard code here
 
     // Configuration
     this.minDelay = config.minDelay || 100;
@@ -83,17 +83,17 @@ class EmailService {
 
   private validateConfig(): void {
     const requiredVars = [
-      { key: 'clientId', name: 'CLIENT_ID' },
-      { key: 'clientSecret', name: 'CLIENT_SECRET' },
-      { key: 'redirectURI', name: 'REDIRECT_URI' },
-      { key: 'refreshToken', name: 'REFRESH_TOKEN' },
-      { key: 'sendersAddress', name: 'SENDERS_ADDRESS' }
+      { key: "clientId", name: "CLIENT_ID" },
+      { key: "clientSecret", name: "CLIENT_SECRET" },
+      { key: "redirectURI", name: "REDIRECT_URI" },
+      { key: "refreshToken", name: "REFRESH_TOKEN" },
+      { key: "sendersAddress", name: "SENDERS_ADDRESS" }
     ];
 
     const missingVars = requiredVars.filter(({ key }) => !this[key as keyof this]);
 
     if (missingVars.length > 0) {
-      throw new Error(`Missing required configuration: ${missingVars.map(v => v.name).join(', ')}`);
+      throw new Error(`Missing required configuration: ${missingVars.map(v => v.name).join(", ")}`);
     }
   }
 
@@ -102,13 +102,13 @@ class EmailService {
       const accessToken = await this.oauth2Client.getAccessToken();
 
       if (!accessToken.token) {
-        throw new Error('Failed to obtain access token');
+        throw new Error("Failed to obtain access token");
       }
 
       return nodemailer.createTransport({
-        service: 'gmail',
+        service: "gmail",
         auth: {
-          type: 'OAuth2',
+          type: "OAuth2",
           user: this.sendersAddress,
           clientId: this.clientId,
           clientSecret: this.clientSecret,
@@ -121,7 +121,7 @@ class EmailService {
         maxMessages: 100
       });
     } catch (error) {
-      console.error('Error creating email transporter:', error);
+      console.error("Error creating email transporter:", error);
       throw new Error(`Failed to create email transporter: ${(error as Error).message}`);
     }
   }
@@ -143,7 +143,7 @@ class EmailService {
     try {
       // Validate required options
       if (!options.to || !options.subject) {
-        throw new Error('Missing required email options: to, subject');
+        throw new Error("Missing required email options: to, subject");
       }
 
       // Rate limiting
@@ -161,8 +161,8 @@ class EmailService {
         bcc: options.bcc,
         attachments: options.attachments,
         headers: {
-          'X-Priority': options.priority || 'Normal',
-          'X-Mailer': 'EmailService-v2.0',
+          "X-Priority": options.priority || "Normal",
+          "X-Mailer": "EmailService-v2.0",
           ...options.headers
         }
       };
@@ -171,7 +171,7 @@ class EmailService {
       if (options.trackingId) {
         mailOptions.headers = {
           ...mailOptions.headers,
-          'X-Tracking-ID': options.trackingId
+          "X-Tracking-ID": options.trackingId
         };
       }
 
@@ -204,7 +204,7 @@ class EmailService {
     }
   }
 
-  // Create your email templates here as a function which callls the above 'sendEmail' function or use React Email Templates
+  // Create your email templates here as a function which callls the above "sendEmail" function or use React Email Templates
 }
 
 // Create singleton instance

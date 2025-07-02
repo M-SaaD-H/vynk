@@ -1,13 +1,13 @@
-import { Command } from 'commander';
-import { getRegistry } from '../../lib/getRegistry.js'
-import path from 'path'
-import fs from 'fs'
-import chalk from 'chalk';
+import { Command } from "commander";
+import { getRegistry } from "../../lib/getRegistry.js"
+import path from "path"
+import fs from "fs"
+import chalk from "chalk";
 
 export const build = new Command()
-  .name('registry:build')
-  .option('-c, --cwd', 'Working directory. Deafults to the current working directory', process.cwd())
-  .description('builds the registry for components')
+  .name("registry:build")
+  .option("-c, --cwd", "Working directory. Deafults to the current working directory", process.cwd())
+  .description("builds the registry for components")
   .action(async (options: { cwd: string }) => {
     await buildRegistry(options.cwd);
   });
@@ -18,7 +18,7 @@ const buildRegistry = async (cwd: string) => {
   try {
     const registry = getRegistry();
 
-    const registryStorePath = path.join(cwd, 'public', 'r');
+    const registryStorePath = path.join(cwd, "public", "r");
 
     if (!fs.existsSync(registryStorePath)) {
       fs.mkdirSync(registryStorePath, { recursive: true });
@@ -29,7 +29,7 @@ const buildRegistry = async (cwd: string) => {
 
       componentRegistry.files = componentRegistry.files.map(file => {
         const fileSourcePath = path.join(cwd, file.path);
-        const fileContent = fs.readFileSync(fileSourcePath, 'utf-8');
+        const fileContent = fs.readFileSync(fileSourcePath, "utf-8");
 
         return {
           ...file,
@@ -45,7 +45,7 @@ const buildRegistry = async (cwd: string) => {
       );
     }
   } catch (error) {
-    console.log(chalk.red('Error while building registry E:', (error as Error).message));
+    console.log(chalk.red("Error while building registry E:", (error as Error).message));
     throw error;
   }
 }

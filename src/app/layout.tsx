@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeContextProvider } from "@/contexts/ThemeContextProvider";
 import { RootProvider } from "fumadocs-ui/provider"
 import Navbar from "@/components/Navbar";
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "Vynk",
   description: "Build what matters",
   icons: {
-    icon: '/logo.png'
+    icon: "/logo.png"
   }
 };
 

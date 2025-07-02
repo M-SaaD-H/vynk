@@ -1,14 +1,14 @@
-import dotenv from 'dotenv'
-import { app } from './app'
+import dotenv from "dotenv"
+import { app } from "./app"
 
 dotenv.config({
-  path: './env'
+  path: "./env"
 })
 
 const port = process.env.PORT || 3000;
 
-app.on('error', (error) => {
-  console.log('Error :', error);
+app.on("error", (error) => {
+  console.log("Error :", error);
   throw error;
 });
 

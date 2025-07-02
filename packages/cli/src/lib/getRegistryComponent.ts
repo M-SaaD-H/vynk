@@ -7,7 +7,7 @@ export const getRegistryComponent = async (component: string): Promise<RegistryI
   const res = await fetch(`${BASE_URL}/r/${component}.json`);
 
   if(!res.ok) {
-    console.log(chalk.red('Component not found in registry'));
+    console.log(chalk.red("Component not found in registry"));
     return null
   }
 

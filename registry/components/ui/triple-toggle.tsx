@@ -1,12 +1,12 @@
-import * as React from 'react'
+import * as React from "react"
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-import { IconPointFilled } from '@tabler/icons-react';
-import { motion } from 'motion/react'
+import { IconPointFilled } from "@tabler/icons-react";
+import { motion } from "motion/react"
 
-const SLIDER_OFFSET = '12rem';
-const SUB_SLIDER_OFFSET = '5.5rem';
+const SLIDER_OFFSET = "12rem";
+const SUB_SLIDER_OFFSET = "5.5rem";
 
 const TripleToggle = ({
   options,
@@ -18,7 +18,7 @@ const TripleToggle = ({
     options.grouped.subOptions.includes(value)
   );
 
-  // Set the double toggle (subslider) to 'on' or 'off' according to the selected option
+  // Set the double toggle (subslider) to "on" or "off" according to the selected option
   React.useEffect(() => {
     setDoubleToggleOn(value !== options.main)
   }, [value, options.main])
@@ -35,40 +35,40 @@ const TripleToggle = ({
     on: {
       scale: 1,
       y: -12,
-      width: '100%',
+      width: "100%",
       transition: {
         duration: 0.2,
-        type: 'tween',
-        ease: 'easeInOut'
+        type: "tween",
+        ease: "easeInOut"
       }
     },
     off: {
       scale: 0.8,
       y: 0,
-      width: 'max-content',
+      width: "max-content",
       transition: {
         duration: 0.2,
-        type: 'tween',
-        ease: 'easeInOut'
+        type: "tween",
+        ease: "easeInOut"
       }
     }
   }
 
   const sliderVariant = {
     on: {
-      x: '12rem',
+      x: "12rem",
       transition: {
         duration: 0.3,
-        type: 'tween',
-        ease: 'easeInOut'
+        type: "tween",
+        ease: "easeInOut"
       }
     },
     off: {
       x: 0,
       transition: {
         duration: 0.3,
-        type: 'tween',
-        ease: 'easeInOut'
+        type: "tween",
+        ease: "easeInOut"
       }
     }
   }
@@ -80,8 +80,8 @@ const TripleToggle = ({
       y: 20,
       transition: {
         duration: 0.3,
-        type: 'tween',
-        ease: 'easeInOut'
+        type: "tween",
+        ease: "easeInOut"
       }
     },
     off: {
@@ -90,8 +90,8 @@ const TripleToggle = ({
       y: 7,
       transition: {
         duration: 0.3,
-        type: 'tween',
-        ease: 'easeInOut'
+        type: "tween",
+        ease: "easeInOut"
       }
     }
   }
@@ -99,33 +99,33 @@ const TripleToggle = ({
   return (
     <motion.div
       initial={false}
-      animate={doubleToggleOn ? 'on' : 'off'}
+      animate={doubleToggleOn ? "on" : "off"}
       className={cn(
-        'p-1 bg-secondary rounded-full cursor-pointer w-max',
+        "p-1 bg-secondary rounded-full cursor-pointer w-max",
         className
       )}
     >
-      <div className='h-12 w-[24rem] rounded-full flex relative'>
+      <div className="h-12 w-[24rem] rounded-full flex relative">
         {/* Slider */}
         <motion.div
           initial={{
             x: doubleToggleOn ? SLIDER_OFFSET : 0
           }}
           variants={sliderVariant}
-          className='bg-primary h-full w-1/2 absolute rounded-full'
+          className="bg-primary h-full w-1/2 absolute rounded-full"
         />
 
         <div
           className={cn(
-            'h-full w-1/2 rounded-full flex justify-center items-center relative transition-colors',
-            doubleToggleOn ? 'text-primary' : 'text-primary-foreground'
+            "h-full w-1/2 rounded-full flex justify-center items-center relative transition-colors",
+            doubleToggleOn ? "text-primary" : "text-primary-foreground"
           )}
           onClick={() => toggleOptions(options.main)}
         >
           {options.main}
         </div>
         <div
-          className='h-full w-1/2 flex flex-col justify-center items-center'
+          className="h-full w-1/2 flex flex-col justify-center items-center"
           onClick={() => setDoubleToggleOn(true)}
         >
           <motion.div variants={titleVariant}>
@@ -135,8 +135,8 @@ const TripleToggle = ({
           <motion.div
             variants={optionsVariant}
             className={cn(
-              'flex justify-between h-full w-full p-1',
-              doubleToggleOn ? 'text-primary-foreground' : 'text-primary'
+              "flex justify-between h-full w-full p-1",
+              doubleToggleOn ? "text-primary-foreground" : "text-primary"
             )}
           >
 
@@ -152,12 +152,12 @@ const TripleToggle = ({
                   }}
 
                   transition={{
-                    type: 'tween',
-                    ease: 'easeInOut',
+                    type: "tween",
+                    ease: "easeInOut",
                     duration: 0.2
                   }}
 
-                  className='bg-primary-foreground h-10 -top-1 w-1/2 absolute rounded-full -z-1'
+                  className="bg-primary-foreground h-10 -top-1 w-1/2 absolute rounded-full -z-1"
                 />
               )
             }
@@ -165,22 +165,22 @@ const TripleToggle = ({
             <div
               onClick={() => toggleOptions(options.grouped.subOptions[0])}
               className={cn(
-                'w-1/2 text-center h-full relative',
-                'transition-colors duration-200',
-                doubleToggleOn && (value === options.grouped.subOptions[0] ? 'text-primary' : 'text-primary-foreground'),
+                "w-1/2 text-center h-full relative",
+                "transition-colors duration-200",
+                doubleToggleOn && (value === options.grouped.subOptions[0] ? "text-primary" : "text-primary-foreground"),
               )}
             >
               {options.grouped.subOptions[0]}
             </div>
 
-            <IconPointFilled className={`my-auto transition-all duration-200 ${doubleToggleOn && 'opacity-0 scale-80'}`} size={12} />
+            <IconPointFilled className={`my-auto transition-all duration-200 ${doubleToggleOn && "opacity-0 scale-80"}`} size={12} />
 
             <div
               onClick={() => toggleOptions(options.grouped.subOptions[1])}
               className={cn(
-                'w-1/2 text-center h-full',
-                'transition-colors duration-200',
-                doubleToggleOn && (value === options.grouped.subOptions[1] ? 'text-primary' : 'text-primary-foreground'),
+                "w-1/2 text-center h-full",
+                "transition-colors duration-200",
+                doubleToggleOn && (value === options.grouped.subOptions[1] ? "text-primary" : "text-primary-foreground"),
               )}
             >
               {options.grouped.subOptions[1]}

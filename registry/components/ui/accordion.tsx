@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import * as AccordionPrimitive from '@radix-ui/react-accordion'
-import { cn } from '@/lib/utils';
-import { IconChevronDown } from '@tabler/icons-react'
-import { AnimatePresence, motion } from 'motion/react'
+import * as React from "react"
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import { cn } from "@/lib/utils";
+import { IconChevronDown } from "@tabler/icons-react"
+import { AnimatePresence, motion } from "motion/react"
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -16,14 +16,14 @@ const AccordionItem = React.forwardRef<
     <AccordionPrimitive.Item
       ref={ref}
       className={cn(
-        'divide-y divide-border',
+        "divide-y divide-border",
         className
       )}
       {...props}
     />
   )
 )
-AccordionItem.displayName = 'AccordionItem'
+AccordionItem.displayName = "AccordionItem"
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
@@ -31,17 +31,17 @@ const AccordionTrigger = React.forwardRef<
 >(
   ({ children, className, ...props }, ref) => {
     return (
-      <AccordionPrimitive.Header className='mt-0'>
+      <AccordionPrimitive.Header className="mt-0">
         <AccordionPrimitive.Trigger
           ref={ref}
           className={cn(
-            'flex w-full justify-between p-2 group cursor-pointer',
+            "flex w-full justify-between p-2 group cursor-pointer",
             className
           )}
           {...props}
         >
-          <span className='group-hover:ml-2 text-left transition-all duration-200 text-base font-medium'>{children}</span>
-          <IconChevronDown size={18} aria-hidden={true} className='text-muted-foreground shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180' />
+          <span className="group-hover:ml-2 text-left transition-all duration-200 text-base font-medium">{children}</span>
+          <IconChevronDown size={18} aria-hidden={true} className="text-muted-foreground shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
     )
@@ -69,11 +69,11 @@ const AccordionContent = React.forwardRef<
 
       // To observe the change in the state of the content
       const observer = new MutationObserver(() => {
-        const newState = node.getAttribute('data-state');
-        setIsOpen(newState === 'open');
+        const newState = node.getAttribute("data-state");
+        setIsOpen(newState === "open");
       });
 
-      observer.observe(node, { attributes: true, attributeFilter: ['data-state'] });
+      observer.observe(node, { attributes: true, attributeFilter: ["data-state"] });
 
       return () => observer.disconnect();
     }, []);
@@ -83,7 +83,7 @@ const AccordionContent = React.forwardRef<
         forceMount
         ref={contentRef}
         {...props}
-        className='overflow-hidden transition-all duration-200'
+        className="overflow-hidden transition-all duration-200"
       >
         <AnimatePresence initial={false}>
           {
@@ -92,31 +92,31 @@ const AccordionContent = React.forwardRef<
                 initial={{
                   height: 0,
                   opacity: 0,
-                  filter: 'blur(10px)',
+                  filter: "blur(10px)",
                   scale: 0.95
                 }}
                 animate={{
-                  height: 'auto',
+                  height: "auto",
                   opacity: 1,
-                  filter: 'blur(0px)',
+                  filter: "blur(0px)",
                   scale: 1
                 }}
                 exit={{
                   height: 0,
                   opacity: 0,
-                  filter: 'blur(10px)',
+                  filter: "blur(10px)",
                   scale: 0.95
                 }}
                 transition={{
                   duration: animationDuration,
-                  ease: 'easeInOut',
-                  type: 'tween',
+                  ease: "easeInOut",
+                  type: "tween",
                 }}
               >
                 <div
                   ref={ref}
                   className={cn(
-                    'px-4 pb-4 text-sm',
+                    "px-4 pb-4 text-sm",
                     className
                   )}
                 >

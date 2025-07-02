@@ -1,5 +1,5 @@
-import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
-import React from 'react';
+import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
+import React from "react";
 
 const Terminal = ({ command }: { command: string }) => {
 
@@ -24,9 +24,9 @@ const Terminal = ({ command }: { command: string }) => {
             <span className="text-white">:</span>
             <span className="text-purple-400">~</span>
             <span className="text-white">$ </span>
-            <span className='mx-1'>
-              <CodeBlock keepBackground className='border-none'>
-                <Pre className='font-mono pl-1 pr-16 text-left'>
+            <span className="mx-1">
+              <CodeBlock keepBackground className="border-none">
+                <Pre className="font-mono pl-1 pr-16 text-left">
                   {command}
                 </Pre>
               </CodeBlock>

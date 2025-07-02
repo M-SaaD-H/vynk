@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog'
+import * as React from "react"
+import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 
-import { cn } from '@/lib/utils'
-import { buttonVariants } from './button'
-import { AnimatePresence, motion } from 'motion/react'
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "./button"
+import { AnimatePresence, motion } from "motion/react"
 
 const AlertDialogStateContext = React.createContext<boolean | undefined>(undefined);
 
@@ -17,7 +17,7 @@ const AlertDialog = ({ ...props }: React.ComponentProps<typeof AlertDialogPrimit
       <AlertDialogPrimitive.Root
         open={isOpen}
         onOpenChange={setIsOpen}
-        data-slot='alert-dialog'
+        data-slot="alert-dialog"
         {...props}
       />
     </AlertDialogStateContext.Provider>
@@ -26,14 +26,14 @@ const AlertDialog = ({ ...props }: React.ComponentProps<typeof AlertDialogPrimit
 
 const AlertDialogTrigger = ({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>) => (
   <AlertDialogPrimitive.Trigger
-    data-slot='alert-dialog-trigger'
+    data-slot="alert-dialog-trigger"
     {...props}
   />
 )
 
 const AlertDialogPortal = ({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Portal>) => (
   <AlertDialogPrimitive.Portal
-    data-slot='alert-dialog-portal'
+    data-slot="alert-dialog-portal"
     {...props}
   />
 )
@@ -60,14 +60,14 @@ const AlertDialogOverlay = ({ className, ...props }: React.ComponentProps<typeof
             }}
 
             className={cn(
-              'fixed inset-0 bg-black/50',
+              "fixed inset-0 bg-black/50",
               className
             )}
           >
             <AlertDialogPrimitive.Overlay
-              data-slot='alert-dialog-overlay'
+              data-slot="alert-dialog-overlay"
               className={cn(
-                'fixed inset-0 z-50 bg-black/50',
+                "fixed inset-0 z-50 bg-black/50",
                 className
               )}
               {...props}
@@ -94,32 +94,32 @@ const AlertDialogContent = ({ className, ...props }: React.ComponentProps<typeof
                 scale: 0.97,
                 x: 30,
                 y: -30,
-                filter: 'blur(10px)'
+                filter: "blur(10px)"
               }}
               animate={{
                 opacity: 1,
                 scale: 1,
                 x: 0,
                 y: 0,
-                filter: 'blur(0px)'
+                filter: "blur(0px)"
               }}
               exit={{
                 opacity: 0,
                 scale: 0.95,
                 x: 30,
                 y: -30,
-                filter: 'blur(10px)'
+                filter: "blur(10px)"
               }}
               transition={{
                 duration: 0.25,
               }}
-              className='fixed z-50 top-1/2 left-1/2 -translate-1/2 inset-0 h-screen w-screen flex justify-center items-center'
+              className="fixed z-50 top-1/2 left-1/2 -translate-1/2 inset-0 h-screen w-screen flex justify-center items-center"
             >
               <AlertDialogPrimitive.Content
-                data-slot='alert-dialog-content'
+                data-slot="alert-dialog-content"
                 {...props}
                 className={cn(
-                  'bg-neutral-50 dark:bg-neutral-900 relative z-50 flex flex-col w-full md:max-w-[30rem] max-w-[calc(100vw-2em)] gap-4 rounded-md border border-border p-6 shadow-lg',
+                  "bg-neutral-50 dark:bg-neutral-900 relative z-50 flex flex-col w-full md:max-w-[30rem] max-w-[calc(100vw-2em)] gap-4 rounded-md border border-border p-6 shadow-lg",
                   className
                 )}
               />
@@ -137,13 +137,13 @@ const AlertDialogHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      'flex flex-col space-y-2 text-center md:text-left',
+      "flex flex-col space-y-2 text-center md:text-left",
       className
     )}
     {...props}
   />
 )
-AlertDialogHeader.displayName = 'AlertDialogHeader'
+AlertDialogHeader.displayName = "AlertDialogHeader"
 
 const AlertDialogFooter = ({
   className,
@@ -151,21 +151,21 @@ const AlertDialogFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      'mt-4 flex flex-col-reverse md:flex-row md:justify-end gap-2',
+      "mt-4 flex flex-col-reverse md:flex-row md:justify-end gap-2",
       className
     )}
     {...props}
   />
 )
-AlertDialogFooter.displayName = 'AlertDialogFooter'
+AlertDialogFooter.displayName = "AlertDialogFooter"
 
 const AlertDialogTitle = ({
   className,
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Title>) => (
   <AlertDialogPrimitive.Title
-    data-slot='alert-dialog-title'
-    className={cn('text-xl font-semibold', className)}
+    data-slot="alert-dialog-title"
+    className={cn("text-xl font-semibold", className)}
     {...props}
   />
 )
@@ -175,8 +175,8 @@ const AlertDialogDescription = ({
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Description>) => (
   <AlertDialogPrimitive.Description
-    data-slot='alert-dialog-description'
-    className={cn('text-muted-foreground text-sm', className)}
+    data-slot="alert-dialog-description"
+    className={cn("text-muted-foreground text-sm", className)}
     {...props}
   />
 )
@@ -196,7 +196,7 @@ const AlertDialogCancel = ({
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Cancel>) => (
   <AlertDialogPrimitive.Cancel
-    className={cn(buttonVariants({ variant: 'outline' }), className)}
+    className={cn(buttonVariants({ variant: "outline" }), className)}
     {...props}
   />
 )

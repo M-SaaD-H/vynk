@@ -21,8 +21,8 @@ export function cn(...inputs: ClassValue[]) {
 
 
 export const INITIAL_REQUIRED_DEPENDENCIES = [
-  'class-variance-authority@latest',
-  'tailwind-merge@latest'
+  "class-variance-authority@latest",
+  "tailwind-merge@latest"
 ] as const
 
 export const GLOBAL_CSS_VARS =
@@ -105,7 +105,7 @@ export const GLOBAL_CSS_VARS =
 
 
 // Use this for dev
-// export const BASE_URL = 'http://localhost:3000'
+// export const BASE_URL = "http://localhost:3000"
 
 // Use this for prod
-export const BASE_URL = 'https://vynk.live'
+export const BASE_URL = "https://vynk.live"
