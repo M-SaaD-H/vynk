@@ -8,7 +8,7 @@ import { ComponentShowcase } from '../../components/ComponentShowcase.tsx'
 
 The Text Animation - a component that brings your text to life with smooth, customizable animations. Whether you want to animate characters, words, or entire lines, this component has got you covered. It's like having a personal animator for your text content!
 
-<ComponentShowcase component={<TextAnimation text={'Welcome to our amazing platform!'} />} code={`const AnimatedText = () => {
+<ComponentShowcase showRefresh={true} component={<TextAnimation text={'Welcome to our amazing platform!'} />} code={`const AnimatedText = () => {
   return (
     <TextAnimation
       text="Welcome to our amazing platform!"
@@ -73,7 +73,7 @@ The component comes with a variety of animation options:
 Here are some examples of different animation styles you can create:
 
 ### Word-by-Word Animation
-<ComponentShowcase component={<TextAnimation text="Animate each word with style" by="words" direction="bottom" blur={true} fade={true} />} code={`const WordAnimation = () => {
+<ComponentShowcase showRefresh={true} component={<TextAnimation text="Animate each word with style" by="words" direction="bottom" blur={true} fade={true} />} code={`const WordAnimation = () => {
   return (
     <TextAnimation
       text="Animate each word with style"
@@ -86,7 +86,7 @@ Here are some examples of different animation styles you can create:
 }`} />
 
 ### Character-by-Character Animation
-<ComponentShowcase component={<TextAnimation text="Typewriter effect" by="chars" direction="right" blur={true} fade={true} delay={0.5} />} code={`const CharAnimation = () => {
+<ComponentShowcase showRefresh={true} component={<TextAnimation text="Typewriter effect" by="chars" direction="right" blur={true} fade={true} />} code={`const CharAnimation = () => {
   return (
     <TextAnimation
       text="Typewriter effect"
@@ -99,7 +99,7 @@ Here are some examples of different animation styles you can create:
 }`} />
 
 ### Line-by-Line Animation
-<ComponentShowcase component={<TextAnimation text={`First line
+<ComponentShowcase showRefresh={true} component={<TextAnimation text={`First line
 Second line
 Third line`} by="lines" direction="top" blur={true} fade={true} />} code={`const LineAnimation = () => {
   return (
@@ -116,7 +116,7 @@ Third line\`}
 }`} />
 
 ### No Animation Split
-<ComponentShowcase component={<TextAnimation text="Animate as one piece" by="none" direction="bottom" blur={true} fade={true} delay={1.5} />} code={`const NoSplitAnimation = () => {
+<ComponentShowcase showRefresh={true} component={<TextAnimation text="Animate as one piece" by="none" direction="bottom" blur={true} fade={true} />} code={`const NoSplitAnimation = () => {
   return (
     <TextAnimation
       text="Animate as one piece"
