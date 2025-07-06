@@ -47,27 +47,26 @@ const AlertDialogOverlay = ({ className, ...props }: React.ComponentProps<typeof
         isOpen && (
           <motion.div
             initial={{
-              opacity: 0
+              opacity: 0,
+              backdropFilter: "blur(0px)"
             }}
             animate={{
-              opacity: 1
+              opacity: 1,
+              backdropFilter: "blur(4px)"
             }}
             exit={{
-              opacity: 0
+              opacity: 0,
+              backdropFilter: "blur(0px)"
             }}
             transition={{
               duration: 0.3
             }}
-
-            className={cn(
-              "fixed inset-0 bg-black/50",
-              className
-            )}
+            className="fixed inset-0 z-50 bg-black/50"
           >
             <AlertDialogPrimitive.Overlay
               data-slot="alert-dialog-overlay"
               className={cn(
-                "fixed inset-0 z-50 bg-black/50",
+                "fixed inset-0 z-50 bg-transparent",
                 className
               )}
               {...props}
@@ -81,10 +80,16 @@ const AlertDialogOverlay = ({ className, ...props }: React.ComponentProps<typeof
 
 const AlertDialogContent = ({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content>) => {
   const isOpen = React.useContext(AlertDialogStateContext);
+  const [isJuggling, setIsJuggling] = React.useState(false);
+
+  const handleOverlayClick = () => {
+    setIsJuggling(true);
+    setTimeout(() => setIsJuggling(false), 600);
+  };
 
   return (
     <AlertDialogPortal forceMount>
-      <AlertDialogOverlay />
+      <AlertDialogOverlay onClick={handleOverlayClick} />
       <AnimatePresence initial={false}>
         {
           isOpen && (
@@ -99,7 +104,7 @@ const AlertDialogContent = ({ className, ...props }: React.ComponentProps<typeof
               animate={{
                 opacity: 1,
                 scale: 1,
-                x: 0,
+                x: isJuggling ? [0, -6, 6, 0] : 0,
                 y: 0,
                 filter: "blur(0px)"
               }}
@@ -112,6 +117,10 @@ const AlertDialogContent = ({ className, ...props }: React.ComponentProps<typeof
               }}
               transition={{
                 duration: 0.25,
+                x: {
+                  duration: 0.2,
+                  ease: "easeInOut"
+                }
               }}
               className="fixed z-50 top-1/2 left-1/2 -translate-1/2 inset-0 h-screen w-screen flex justify-center items-center"
             >
@@ -119,7 +128,7 @@ const AlertDialogContent = ({ className, ...props }: React.ComponentProps<typeof
                 data-slot="alert-dialog-content"
                 {...props}
                 className={cn(
-                  "bg-neutral-50 dark:bg-neutral-900 relative z-50 flex flex-col w-full md:max-w-[30rem] max-w-[calc(100vw-2em)] gap-4 rounded-md border border-border p-6 shadow-lg",
+                  "bg-neutral-50 dark:bg-neutral-900 relative z-50 flex flex-col w-full md:max-w-[30rem] max-w-[calc(100vw-2em)] gap-2 rounded-lg border border-border p-6 shadow-lg",
                   className
                 )}
               />
