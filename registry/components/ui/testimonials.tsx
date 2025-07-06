@@ -16,24 +16,24 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
     testimonials.filter((_, idx) => idx > 0)
   );
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setPendingTestimonials(prev => [...prev, currentTestimonial]);
-  //     setCurrentTestimonial(pendingTestimonials[0]);
-  //     setPendingTestimonials(prev => prev.slice(1));
-  //   }, 2000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setPendingTestimonials(prev => [...prev, currentTestimonial]);
+      setCurrentTestimonial(pendingTestimonials[0]);
+      setPendingTestimonials(prev => prev.slice(1));
+    }, 2000);
 
-  //   return () => clearInterval(intervalId);
-  // }, [currentTestimonial, pendingTestimonials]);
+    return () => clearInterval(intervalId);
+  }, [currentTestimonial, pendingTestimonials]);
 
   return (
-    <div className="relative bg-red-500">
-      <div className="flex justify-end items-center gap-16 w-max min-w-[18rem] h-max">
+    <div className="relative">
+      <div className="flex justify-end items-center gap-16 w-max min-w-[18rem] h-12">
         <AnimatePresence mode="popLayout">
           <motion.div
             key={currentTestimonial.name}
             initial={{
-              x: 100,
+              x: 104,
               filter: "grayscale(100%)",
             }}
             animate={{
@@ -80,7 +80,7 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
               ease: [0.25, 0.1, 0.25, 1]
             }}
             className={cn(
-              "bg-card text-card-foreground border text-sm p-4 bottom-0 left-[1.2em] absolute w-[15rem] rounded-xl",
+              "bg-card text-card-foreground border text-sm p-4 bottom-16 left-[1.2em] absolute w-[15rem] rounded-xl",
               "shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)]"
             )}
           >
@@ -133,7 +133,6 @@ const TestimonialBlock = ({ testimonial, className }: { testimonial: Testimonial
     <motion.div
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.2 }}
-      className="bg-blue-500"
     >
       <img
         src={testimonial.avatar}
