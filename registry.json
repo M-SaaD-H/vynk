@@ -173,6 +173,21 @@
       ]
     },
     {
+      "name": "testimonials",
+      "title": "Testimonials",
+      "description": "A Minimal Testimonials component",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/components/ui/testimonials.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "motion"
+      ]
+    },
+    {
       "name": "accordion-block",
       "title": "Accordion Block",
       "description": "A Accordion Block component to add for FAQs section",
