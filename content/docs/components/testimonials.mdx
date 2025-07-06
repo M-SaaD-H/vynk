@@ -1,0 +1,189 @@
+---
+title: Testimonials
+---
+
+import { Testimonials } from '@/../registry/components/ui/testimonials.tsx'
+import { ComponentShowcase } from '../../components/ComponentShowcase.tsx'
+import { InstallationCommand } from '../../components/InstallationCommand.tsx'
+
+Ah, the Testimonials component - because nothing says "trust us, we're legit" like a rotating carousel of fake smiling faces! This bad boy cycles through your carefully curated testimonials with the grace of a ballerina and the persistence of that one friend who won't stop talking about their new diet. Perfect for when you need to convince visitors that real humans actually use your product (even if they're just stock photos).
+
+<ComponentShowcase
+  component={
+    <Testimonials 
+      testimonials={[
+  {
+    name: "Alex P.",
+    content: "Vynk made my workflow so much smoother. Highly recommended!",
+    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUf3MD28jfnfzyfhpBnuL5RAcLwEnidaCCJQ&s"
+  },
+  {
+    name: "Samantha R.",
+    content: "Super intuitive and fast. Vynk is a game changer for my team.",
+    avatar: "https://imgv3.fotor.com/images/gallery/generate-a-realistic-ai-avatar-of-a-professional-woman-in-fotor.jpg"
+  },
+  {
+    name: "Jordan L.",
+    content: "I love how easy it is to collaborate with Vynk. Great tool!",
+    avatar: "https://images.media.io/images2023/ai-portrait-generator/portrait-pic1.png"
+  },
+  {
+    name: "Priya S.",
+    content: "Vynk saves me hours every week. Simple and effective.",
+    avatar: "https://cdn.prod.website-files.com/65e89895c5a4b8d764c0d70e/67e289c3be550853f270d71a_66abb234b00a4bc015936331_image%25208.webp"
+  },
+  {
+    name: "Paloma",
+    content: "The support team is fantastic. Vynk just works.",
+    avatar: "https://cdn.prod.website-files.com/65e89895c5a4b8d764c0d70e/67e289c3733b75dda4127511_66abb2cc1fbe166075432e7f_image%25209.webp"
+  },
+  {
+    name: "Morgan T.",
+    content: "From setup to daily use, Vynk is seamless and reliable.",
+    avatar: "https://imgv3.fotor.com/images/gallery/generate-a-realistic-ai-avatar-of-a-formal-man-in-fotor.jpg"
+  }
+]} 
+    />
+  }
+  code={
+  `const testimonials = [
+  {
+    name: "Alex P.",
+    content: "Vynk made my workflow so much smoother. Highly recommended!",
+    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUf3MD28jfnfzyfhpBnuL5RAcLwEnidaCCJQ&s"
+  },
+  {
+    name: "Samantha R.",
+    content: "Super intuitive and fast. Vynk is a game changer for my team.",
+    avatar: "https://imgv3.fotor.com/images/gallery/generate-a-realistic-ai-avatar-of-a-professional-woman-in-fotor.jpg"
+  },
+  {
+    name: "Jordan L.",
+    content: "I love how easy it is to collaborate with Vynk. Great tool!",
+    avatar: "https://images.media.io/images2023/ai-portrait-generator/portrait-pic1.png"
+  },
+  {
+    name: "Priya S.",
+    content: "Vynk saves me hours every week. Simple and effective.",
+    avatar: "https://cdn.prod.website-files.com/65e89895c5a4b8d764c0d70e/67e289c3be550853f270d71a_66abb234b00a4bc015936331_image%25208.webp"
+  },
+  {
+    name: "Paloma",
+    content: "The support team is fantastic. Vynk just works.",
+    avatar: "https://cdn.prod.website-files.com/65e89895c5a4b8d764c0d70e/67e289c3733b75dda4127511_66abb2cc1fbe166075432e7f_image%25209.webp"
+  },
+  {
+    name: "Morgan T.",
+    content: "From setup to daily use, Vynk is seamless and reliable.",
+    avatar: "https://imgv3.fotor.com/images/gallery/generate-a-realistic-ai-avatar-of-a-formal-man-in-fotor.jpg"
+  }
+]
+
+  const TestimonialsDemo = () => {
+    return (
+      <Testimonials testimonials={testimonials} />
+    )
+  }
+`
+  }
+/>
+
+### Installation
+
+Warning: This component is more complex than your ex's emotional state. It handles state management, animations, and timing - basically everything your ex couldn't handle. Proceed with caution.
+
+<InstallationCommand component={'testimonials'} />
+
+## Usage
+
+```tsx
+const testimonials = [
+  {
+    name: "Sarah Johnson",
+    content: "This component library has completely transformed our development workflow. The animations are buttery smooth!",
+    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+  },
+  {
+    name: "Mike Chen", 
+    content: "The attention to detail in these components is incredible. Every interaction feels polished and professional.",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+  },
+  {
+    name: "Emily Rodriguez",
+    content: "The documentation is crystal clear and the examples are spot-on. This has saved me hours of development time!",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+  },
+  {
+    name: "David Kim",
+    content: "Finally, a component library that doesn't make me want to pull my hair out. The API is intuitive and the performance is top-notch.",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+  }
+]
+
+const TestimonialsShowcase = () => {
+  return (
+    <Testimonials testimonials={testimonials} />
+  )
+}
+```
+
+## Props
+
+### Testimonials Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `testimonials` | `Testimonial[]` | Yes | Your collection of fake friends who love your product |
+| `className` | `string` | No | Because sometimes you need to make it look less like a testimonial |
+
+### Testimonial Type
+
+```tsx
+type Testimonial = {
+  name: string
+  content: string
+  avatar: string
+}
+```
+
+| Property | Type | Description |
+|----------|------|-------------|
+| name | `string` | The name of your imaginary satisfied customer |
+| content | `string` | The glowing review they definitely wrote themselves |
+| avatar | `string` | A photo that may or may not be from a stock photo website |
+
+## Features
+
+- **Automatic Cycling**: Like a broken record, but in a good way - cycles every 2 seconds
+- **Smooth Animations**: So smooth you'll think you're watching a butter commercial
+- **Visual Hierarchy**: The current testimonial gets the spotlight while others sulk in grayscale
+- **Responsive Design**: Works on everything from your grandma's flip phone to your neighbor's 8K monitor
+- **Hover Interactions**: Subtle animations that make users feel like they're actually interacting with something
+- **Accessible**: Built for people who use screen readers (because inclusivity is cool)
+- **Customizable Styling**: Because one size doesn't fit all, just like your ex's excuses
+- **Tooltip Display**: Shows the testimonial content in a fancy tooltip that appears out of nowhere
+
+## Common Issues
+
+1. **"The testimonials aren't cycling!"** - Check that you're passing an array with multiple testimonials (duh)
+2. **"The images aren't loading!"** - Verify that your image URLs are accessible and properly formatted (and not broken like your promises)
+3. **"The animations are choppy!"** - Ensure you're not rendering too many testimonials at once (less is more, just like your ex's texts)
+4. **"The tooltip is positioned incorrectly!"** - Check if your container has enough space for the tooltip positioning (it needs room to breathe)
+5. **"The component is too wide!"** - The component uses `min-w-[18rem]` - adjust your container width accordingly (or just make your screen bigger)
+6. **"The testimonials are cycling too fast!"** - The component cycles every 2 seconds by default - this is currently hardcoded (because we're lazy)
+
+## Performance Considerations
+
+- The component uses `AnimatePresence` for smooth enter/exit animations (fancy!)
+- State management is optimized to prevent unnecessary re-renders (unlike your ex's mood swings)
+- Images should be pre-optimized to avoid layout shifts (nobody likes surprises)
+- Consider lazy loading for large testimonial arrays (because loading 100 fake testimonials is just showing off)
+
+## Contributing
+
+Found a bug or have an improvement in mind? We welcome your contributions! The Testimonials component is a complex piece of UI engineering that benefits from community input (and your debugging skills).
+
+The Testimonials component is the perfect way to add social proof to your application - it's like having a chorus of satisfied customers singing your praises, even if they're just pixels on a screen! 🎭✨
+
+*Note: No actual customers were harmed in the making of this component. Results may vary. Side effects include increased conversion rates and occasional imposter syndrome.*
+
