@@ -37,7 +37,7 @@ const Footer = () => {
   return (
     <div className="p-8 md:px-44">
       <div className="flex justify-between items-center gap-4 max-md:flex-col">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-sm">
           <div className="flex gap-2 items-center">
             <Image
               src={"/logo.png"}
@@ -48,7 +48,7 @@ const Footer = () => {
             />
             <h2 className="text-2xl font-sans font-bold tracking-tight">Vynk</h2>
           </div>
-          <p>A product by <Link className="underline hover:text-muted-foreground" href={"https://saad.works"} target={"_blank"}>Saad</Link></p>
+          <p>A product by <Link className="text-muted-foreground hover:text-secondary-foreground underline underline-offset-3" href={"https://saad.works"} target={"_blank"}>This Guy</Link></p>
         </div>
         <div className="flex gap-28 md:gap-12 my-4 md:my-12 md:mx-18">
           <ul>

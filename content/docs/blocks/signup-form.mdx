@@ -1,0 +1,47 @@
+---
+title: Sign Up Form
+---
+
+import { SignUp } from '@/../registry/components/block/auth/form/signup-form'
+import { ComponentShowcase } from '../../components/ComponentShowcase.tsx'
+import { InstallationCommand } from '../../components/InstallationCommand.tsx'
+
+Welcome to the **Sign Up Form** – because letting just anyone create an account is the new “growth hack.” This form lets users register with name, email, password, or even their favorite social overlord (Google, Github, you name it). It’s accessible, customizable, and integrates with your backend faster than you can say “confirm email.” Modern, responsive, and so simple your grandma could use it (but please don’t let her sign up for everything).
+
+<ComponentShowcase
+  component={<SignUp />}
+  code={`import { SignUp } from '@/components/block/signup-form'
+
+export default function Page() {
+  return <SignUp />
+}`}
+/>
+
+### Installation
+
+Give your fingers a break and let this command do the heavy lifting, add the Sign Up component to your project in seconds:
+
+<InstallationCommand component={'sign-up'} />
+
+Want both **Sign Up** and **Sign In** forms? Of course you do. Why do things twice when you can be lazy and efficient at the same time? Just run:
+
+<InstallationCommand component={'auth'} />
+
+Voilà! Both authentication forms are now in your project. You’re officially one step closer to never having to build another registration form from scratch (you’re welcome). Now you can set up a complete auth flow in less time than it takes to remember your own password for the 17th time this week.
+
+## Usage
+
+Just import and drop the component wherever you want users to prove they’re not robots (or at least, not the bad kind). If you need more customization, go wild – but don’t blame us if you end up making it worse.
+
+## Props
+
+This component doesn't support any props. Don't even expect, get your lazy a** off your bed and add your spices yourself.
+
+## Common Issues
+
+1. **"The registration is not working"** - Make sure you have added your api url or your own backend to sign up the user
+2. **"Props are not working"** - This component doesn't support any props
+
+## Contributing
+
+Found a bug? Want to make it even more flexible? Feel free to submit a PR. Just make sure your code is as clean as your browser history (which we all know is spotless, right?). 

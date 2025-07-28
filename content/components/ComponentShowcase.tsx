@@ -46,7 +46,7 @@ export const ComponentShowcase = ({ component, code, showRefresh }: { component:
           </Pre>
         </CodeBlock>
       ) : (
-        <div key={refreshKey} className="h-[25rem] w-full rounded-xl border border-border p-4 flex flex-col justify-center items-center">
+        <div key={refreshKey} className="min-h-[25rem] w-full rounded-xl border border-border p-4 flex flex-col justify-center items-center">
           {component}
         </div>
       )}

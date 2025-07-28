@@ -77,6 +77,21 @@
       ]
     },
     {
+      "name": "label",
+      "title": "label",
+      "description": "Label for inputs",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/components/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-label"
+      ]
+    },
+    {
       "name": "headline",
       "title": "Headline",
       "description": "A gradient text headline for landing pages",
@@ -188,6 +203,53 @@
       ]
     },
     {
+      "name": "form",
+      "title": "form",
+      "description": "A Simple Form component that uses react-hook-form and speeds up the process of building forms",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/components/ui/form.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-label",
+        "@radix-ui/react-slot",
+        "react-hook-form"
+      ],
+      "registryDependencies": [
+        "label"
+      ]
+    },
+    {
+      "name": "card",
+      "title": "card",
+      "description": "A Card Component",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/components/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sonner",
+      "title": "sonner",
+      "description": "A Simple toast to show alert to users",
+      "type": "registry:ui",
+      "files": [
+        {
+          "path": "registry/components/ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "sonner"
+      ]
+    },
+    {
       "name": "accordion-block",
       "title": "Accordion Block",
       "description": "A Accordion Block component to add for FAQs section",
@@ -204,6 +266,108 @@
       "registryDependencies": [
         "headline",
         "accordion"
+      ]
+    },
+    {
+      "name": "sign-in",
+      "title": "Sign In",
+      "description": "A Sign in component tailored to handle sign in of any style",
+      "type": "registry:block",
+      "files": [
+        {
+          "path": "registry/components/block/auth/form/signin-form.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/components/block/auth/schema/signin.schema.ts",
+          "type": "registry:file",
+          "target": "src/schema"
+        }
+      ],
+      "dependencies": [
+        "@hookform/resolvers",
+        "react-hook-form",
+        "zod",
+        "sonner",
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "form",
+        "input",
+        "card"
+      ]
+    },
+    {
+      "name": "sign-up",
+      "title": "Sign Up",
+      "description": "A Sign up component tailored to handle sign up of any style",
+      "type": "registry:block",
+      "files": [
+        {
+          "path": "registry/components/block/auth/form/signup-form.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/components/block/auth/schema/signup.schema.ts",
+          "type": "registry:file",
+          "target": "src/schema"
+        }
+      ],
+      "dependencies": [
+        "@hookform/resolvers",
+        "react-hook-form",
+        "zod",
+        "sonner",
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "form",
+        "input",
+        "card"
+      ]
+    },
+    {
+      "name": "auth",
+      "title": "Auth Component",
+      "description": "A Sign in and Sign up component tailored to handle auth of any style",
+      "type": "registry:block",
+      "files": [
+        {
+          "path": "registry/components/block/auth/form/signup-form.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/components/block/auth/schema/signup.schema.ts",
+          "type": "registry:file",
+          "target": "src/schema"
+        },
+        {
+          "path": "registry/components/block/auth/form/signin-form.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/components/block/auth/schema/signin.schema.ts",
+          "type": "registry:file",
+          "target": "src/schema"
+        }
+      ],
+      "dependencies": [
+        "@hookform/resolvers",
+        "react-hook-form",
+        "zod",
+        "sonner",
+        "@tabler/icons-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "form",
+        "input",
+        "card"
       ]
     },
     {
