@@ -48,7 +48,7 @@ const Footer = () => {
             />
             <h2 className="text-2xl font-sans font-bold tracking-tight">Vynk</h2>
           </div>
-          <p>A product by <Link className="text-muted-foreground hover:text-secondary-foreground underline underline-offset-3" href={"https://saad.works"} target={"_blank"}>This Guy</Link></p>
+          <p>A product by <Link className="text-muted-foreground hover:text-secondary-foreground underline underline-offset-3" href={"https://heysaad.me"} target={"_blank"}>This Guy</Link></p>
         </div>
         <div className="flex gap-28 md:gap-12 my-4 md:my-12 md:mx-18">
           <ul>
